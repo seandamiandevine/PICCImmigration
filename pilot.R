@@ -74,6 +74,8 @@ ethinicities = table(choice$ethnicity)/nTrials               # ethnicity breakdo
 
 # Plot frequency (manip check) ----------------------------------------------------------
 
+pdf('plots/manipulationchecks.pdf')
+
 mFreq = tapply(choice$freq, list(choice$condition, choice$block), mean)
 plot(mFreq[1,], type='n', xaxt='n', xlab='Block', ylab='p(White Faces)', ylim=c(0,1))
 axis(1, at=1:length(mFreq[1,]), label=1:length(mFreq[1,]))
@@ -92,7 +94,10 @@ for(i in 1:nrow(mInt)){
 }
 #legend('topright', lty=1, pch=16, col=cols, legend=c('Stable', 'Changing'), title='Prevalence')
 
+dev.off()
+
 # Plot main effect --------------------------------------------------------
+pdf('plots/responsecurve.pdf')
 
 mResp = tapply(choice$response, list(choice$timebin, choice$stimbin), mean)
 mResp = mResp[c(1,4), ]
@@ -108,6 +113,8 @@ for(i in 1:nrow(mResp)){
 }
 legend('topleft', lty=1, pch=16, col=cols, legend=c('First 200 Trials', 'Last 200 Trials'), bty='n')
 text(9.5, 0, paste0('N=', N))
+
+dev.off()
 
 # Model -------------------------------------------------------------------
 
