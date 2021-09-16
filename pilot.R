@@ -2,7 +2,7 @@
 # @author: Sean
 # @date: 2021-09-16
 
-# Comments are for Agatha. 
+# Comments are for Agata. 
 # Agatha, if you have questions, email me!!!
 # For the functions you don't know, you can use the ? in RStudio to learn more about it.
 # For example, if you don't know what mean() does, you can do ?mean to learn more. 
@@ -60,8 +60,12 @@ N = length(unique(choice$ID))                                # number of subject
 conds = table(choice$condition)/nTrials                      # N subjects in each condition
 genders = table(choice$gender)/nTrials                       # gender breakdown
 ages = table(choice$age)/nTrials                             # age breakdown
-ethinicities = table(choice$ethnicity)/nTrials               # ethnicity breakdown
+ethnicities = table(choice$ethnicity)/nTrials                # ethnicity breakdown
 
+# visualize ethnicities if you want
+# tb = barplot(sort(ethinicities), xaxt='n')
+# labs = sapply(names(sort(ethnicities)), function(x) strsplit(x, 'or')[[1]][1])
+# axis(1, at=tb, labels=labs )
 
 ######################################################################
 # All the code below is a bit more specific about plotting data and modeling it with 
@@ -130,7 +134,6 @@ m0=glmer(response~1+(1|ID), data=choice, family='binomial')
 m1=glmer(response~intensity0c+(1|ID), data=choice, family='binomial')
 m2=glmer(response~trial0c+intensity0+(1|ID), data=choice, family='binomial')
 m3=glmer(response~trial0c*intensity0c+(1|ID), data=choice, family='binomial')
-m4=glmer(response~trial0c*intensity0c+(trial0c|ID), data=choice, family='binomial')
 
-anova(m4, m3, m2, m1, m0) 
+anova(m3, m2, m1, m0) 
 
